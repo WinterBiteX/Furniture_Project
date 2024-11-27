@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method = "post" action = "{% url 'save_product' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="col-md-12">
+                  <div class="card mb-4">
+                    <h5 class="card-header">Add Products Here...</h5>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label for="exampleFormControlSelect2" class="form-label">Product Category</label>
+                        <select name = "pcategory" class="form-select" id="exampleFormControlSelect2" aria-label="Multiple select example">
+                          {% for i in data %}
+                          <option >{{i.Category_Name}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Product Name</label>
+                        <input name = "pname" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Product Name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlReadOnlyInput1" class="form-label">Quantity</label>
+                        <input name="quantity" class="form-control" type="text" id="exampleFormControlReadOnlyInput1" placeholder="Quantity">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlReadOnlyInput1" class="form-label">MRP</label>
+                        <input name = "mrp" class="form-control" type="text" id="exampleFormControlReadOnlyInput" placeholder="MRP">
+                      </div>
+
+                      <div>
+                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea type = "text" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description"></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Country of orgin</label>
+                        <input name = "orgin" type="text" class="form-control" id="exampleFormControlInput2" placeholder="Country of orgin">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Manufactured By</label>
+                        <input name = "manufacture" type="text" class="form-control" id="exampleFormControlInput3" placeholder="Manufactured By">
+                      </div>
+                      <div class="mb-3">
+                        <label for="formFileMultiple" class="form-label">Image1</label>
+                        <input name = "img1" class="form-control" type="file" id="formFileMultiple" multiple="">
+                      </div>
+                      <div class="mb-3">
+                        <label for="formFileMultiple" class="form-label">Image2</label>
+                        <input name = "img2" class="form-control" type="file" id="formFileMultiple1" multiple="">
+                      </div>
+                      <div class="mb-3">
+                        <label for="formFileMultiple" class="form-label">Image3</label>
+                        <input name = "img3" class="form-control" type="file" id="formFileMultiple2" multiple="">
+                      </div>
+                      <div class="mb-3">
+                          <button class="btn rounded-pill btn-success" type = "submit">Submit</button>
+                      </div>
+
+                    </div>
+                  </div>
+    </div>
+</form>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+    {% for i in messages %}
+       {% if i.tags == 'success' %}
+           <script>
+               swal('{{i}}','','success')
+           </script>
+       {% elif i.tags == 'error' %}
+           <script>
+               swal('{{i}}','','error')
+           </script>
+       {% elif i.tags == 'warning' %}
+           <script>
+               swal('{{i}}','','warning')
+           </script>
+       {% else %}
+           <script>
+               swal('{{i}}','','info')
+           </script>
+       {% endif %}
+    {% endfor %}
+{% endif %}
+
+</body>
+</html>
+{% endblock %}

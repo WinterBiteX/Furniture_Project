@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method = "post" action = "{% url 'update_product' data.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="col-md-12">
+                  <div class="card mb-4">
+                    <h5 class="card-header">Edit Products Here...</h5>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label for="exampleFormControlSelect2" class="form-label">Product Category</label>
+                        <select name = "pcategory" class="form-select" id="exampleFormControlSelect2" aria-label="Multiple select example">
+                          <option>{{data.Product_Category}}</option>
+                          {% for i in cat %}
+                          <option >{{i.Category_Name}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Product Name</label>
+                        <input value = "{{data.Product_Name}}" name = "pname" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Product Name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlReadOnlyInput1" class="form-label">Quantity</label>
+                        <input value = "{{data.Quantity}}" name="quantity" class="form-control" type="text" id="exampleFormControlReadOnlyInput1" placeholder="Quantity">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlReadOnlyInput1" class="form-label">MRP</label>
+                        <input value = "{{data.MRP}}" name = "mrp" class="form-control" type="text" id="exampleFormControlReadOnlyInput" placeholder="MRP">
+                      </div>
+
+                      <div>
+                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea type = "text" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description">{{data.Description}}</textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Country of origin</label>
+                        <input value = "{{data.Country_Orgin}}" name = "orgin" type="text" class="form-control" id="exampleFormControlInput2" placeholder="Country of orgin">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Manufactured By</label>
+                        <input value = "{{data.Manufactured_By}}" name = "manufacture" type="text" class="form-control" id="exampleFormControlInput3" placeholder="Manufactured By">
+                      </div>
+                      <div class="mb-3">
+                        <label for="formFileMultiple" class="form-label">Image1 :</label>
+                        <img src="{{data.P_Image1.url}}" width="100px" height="100px" style = "margin-left:70px">
+                        <input style="margin-top:10px" name = "img1" class="form-control" type="file" id="formFileMultiple" multiple="">
+                      </div>
+                      <div class="mb-3">
+                        <label for="formFileMultiple" class="form-label">Image2 :</label>
+                        <img src="{{data.P_Image2.url}}" width="100px" height="100px" style = "margin-left:70px">
+                        <input style="margin-top:10px" name = "img2" class="form-control" type="file" id="formFileMultiple1" multiple="">
+                      </div>
+                      <div class="mb-3">
+                        <label for="formFileMultiple" class="form-label">Image3 :</label>
+                        <img src="{{data.P_Image3.url}}" width="100px" height="100px" style = "margin-left:70px">
+                        <input style="margin-top:10px" name = "img3" class="form-control" type="file" id="formFileMultiple2" multiple="">
+                      </div>
+                      <div class="mb-3">
+                          <button class="btn rounded-pill btn-success" type = "submit">Submit</button>
+                      </div>
+
+                    </div>
+                  </div>
+    </div>
+</form>
+
+</body>
+</html>
+{% endblock %}

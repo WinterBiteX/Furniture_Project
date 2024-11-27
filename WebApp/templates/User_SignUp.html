@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up </title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'sign/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'sign/css/style.css' %}">
+</head>
+<body>
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <form onsubmit="return myfunction()" name="my_form" method="post" class="register-form" id="register-form" action="{% url 'save_user' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="name" id="name" placeholder="Your Name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Your Email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-phone"></i></label>
+                                <input type="tel" name="mobile" id="mobile" placeholder="Your Mobile Number"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="pass" id="pass" placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="{% static 'sign/images/signup-image.jpg' %}" alt="sing up image"></figure>
+                        <a href="{% url 'user_signin' %}" class="signup-image-link">I am already member</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'sign/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'sign/js/main.js' %}"></script>
+    <script>
+    function myfunction(){
+        let name = document.my_form.name.value;
+        let email = document.my_form.email.value;
+        let mobile = document.my_form.mobile.value;
+        let password = document.my_form.pass.value;
+        let re_pass = document.my_form.re_pass.value;
+
+        if(name == "" | name == null){
+            alert("Name Required...!")
+            return false
+        }else if(email == "" | email == null){
+            alert("Email Required...!")
+            return false
+        }else if(mobile == "" | mobile == null){
+            alert("Mobile Number Required...!")
+            return false
+        }else if(password.length < 6){
+            alert("Password must contains atleast 6 characters..!")
+            return false
+        }else if(password != re_pass){
+            alert("Incorrect Password..!")
+            return false
+        }
+    }
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+        {% for i in messages %}
+           {% if i.tags == 'success' %}
+               <script>
+                   swal('{{i}}','','success')
+               </script>
+           {% elif i.tags == 'error' %}
+               <script>
+                   swal('{{i}}','','error')
+               </script>
+           {% elif i.tags == 'warning' %}
+               <script>
+                   swal('{{i}}','','warning')
+               </script>
+           {% else %}
+               <script>
+                   swal('{{i}}','','info')
+               </script>
+           {% endif %}
+        {% endfor %}
+    {% endif %}
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
